@@ -6,7 +6,10 @@ import {
   OwnershipTransferred,
   Transfer
 } from "../generated/Poly721/Poly721"
-import { ExampleEntity } from "../generated/schema"
+import { 
+  ExampleEntity,
+  Transfer as TransferEntity
+} from "../generated/schema"
 
 export function handleApproval(event: Approval): void {
   // Entities can be loaded from the store using a string ID; this ID
@@ -63,4 +66,12 @@ export function handleApprovalForAll(event: ApprovalForAll): void {}
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 
-export function handleTransfer(event: Transfer): void {}
+export function handleTransfer(event: Transfer): void {
+  let entity = new TransferEntity(event.transaction.hash.toHex())
+
+  entity.tokenId = event.params.tokenId
+  entity.from = event.params.from
+  entity.to = event.params.to
+
+  entity.save()
+}
