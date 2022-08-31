@@ -12,6 +12,39 @@ import {
   OwnershipTransfer as OwnershipTransferEntity
 } from "../generated/schema"
 
+/*
+* 
+this query returns a wrong response
+
+query token_approvals{
+  approves(
+    first: 5
+    where: {
+      tokenId: "1"
+      approved: "0x0000000000000000000000000000000000000000"
+    }
+    orderBy: tokenId
+    orderDirection: asc
+  ) {
+    id
+    tokenId
+    owner
+    approved
+  }
+}
+
+
+the id is the transaction hash of a safeTransferFrom transaction !
+{
+  "id": "0xed1412bbb2ea8164fdcfe0550c31545e94ab441af8dd1fb2a104cbf20de10b52",
+  "tokenId": "1",
+  "owner": "0xf59be01d4ab24948c6cf80ff2cda354e76ebcade",
+  "approved": "0x0000000000000000000000000000000000000000"
+}
+yet transfers work fine.
+*
+*/
+
 export function handleApproval(event: Approval): void {
   const entity = new ApproveEntity(event.transaction.hash.toHex())
 
