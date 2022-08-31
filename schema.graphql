@@ -1,6 +1,6 @@
 type Approve @entity {
   id: ID!
-  count: BigInt! # how many token has been approved by `owner` address to `approved` address
+  tokenId: BigInt! # token that has been approved by `owner` address to `approved` address
   owner: Bytes! # address
   approved: Bytes! # address
 }

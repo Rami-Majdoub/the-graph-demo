@@ -13,14 +13,12 @@ import {
 } from "../generated/schema"
 
 export function handleApproval(event: Approval): void {
-  let entity = ApproveEntity.load(event.transaction.from.toHex())
-  if (!entity) {
-    entity = new ApproveEntity(event.transaction.from.toHex())
-    entity.count = BigInt.fromI32(0)
-  }
-  entity.count = entity.count + BigInt.fromI32(1)
+  const entity = new ApproveEntity(event.transaction.hash.toHex())
+
+  entity.tokenId = event.params.tokenId
   entity.owner = event.params.owner
   entity.approved = event.params.approved
+
   entity.save()
 
   // Note: If a handler doesn't require existing field values, it is faster
@@ -60,7 +58,7 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
 }
 
 export function handleTransfer(event: Transfer): void {
-  let entity = new TransferEntity(event.transaction.hash.toHex())
+  const entity = new TransferEntity(event.transaction.hash.toHex())
 
   entity.tokenId = event.params.tokenId
   entity.from = event.params.from
