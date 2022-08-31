@@ -8,6 +8,7 @@ dataSources:
     source:
       address: "0x4192b7a39c6ae135194ad6c27566bda6784b689d"
       abi: Poly721
+      startBlock: 7418715
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

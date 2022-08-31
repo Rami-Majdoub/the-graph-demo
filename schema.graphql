@@ -1,6 +1,6 @@
-type ExampleEntity @entity {
+type Approve @entity {
   id: ID!
-  count: BigInt!
+  count: BigInt! # how many token has been approved by `owner` address to `approved` address
   owner: Bytes! # address
   approved: Bytes! # address
 }
@@ -10,4 +10,10 @@ type Transfer @entity {
   tokenId: BigInt!
   from: Bytes! # address
   to: Bytes! # address
+}
+
+type OwnershipTransfer @entity {
+  id: ID!
+  previousOwner: Bytes!
+  newOwner: Bytes!
 }
